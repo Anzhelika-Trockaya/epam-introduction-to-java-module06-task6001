@@ -1,6 +1,7 @@
 package logic;
 
 import model.Book;
+import model.BookGenre;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -180,6 +181,43 @@ public class UserMenu {
 
     private void processOfSuggestABook(){
         String adminEmail = library.getAdminEmail();
-        ////////////////////////send email
+        Book book;
+
+        System.out.println(indent+"---------------    Suggest a book    ---------------");
+        try{
+            book=enterBook();
+            if(library.isNotExist(book)){
+                ////////////////////////send email
+                System.out.println(" - The suggestion sent to the administrator. -");
+            } else{
+                System.out.println(" - The suggestion not sent! Book with this data is exist! -");
+            }
+        } catch(IllegalArgumentException exception){
+            System.out.println(" - The suggestion not sent! Incorrect data of book! - ");
+        }
     }
+     protected Book enterBook(){
+         String title;
+         String author;
+         String genre;
+         String pages;
+         String isElectronic;
+         Book book;
+
+         System.out.println("Enter book data: ");
+         System.out.print("Title: ");
+         title = scanner.nextLine();
+         System.out.print("Author: ");
+         author = scanner.nextLine();
+         System.out.print("Genre: ");
+         genre = scanner.nextLine();
+         System.out.print("Pages: ");
+         pages = scanner.nextLine();
+         System.out.print("Is book electronic? Enter \"true\" if it is otherwise enter \"false\": ");
+         isElectronic = scanner.nextLine();
+
+         book = new Book(title, author, BookGenre.valueOf(genre), Integer.parseInt(pages), Boolean.parseBoolean(isElectronic));
+
+         return book;
+     }
 }

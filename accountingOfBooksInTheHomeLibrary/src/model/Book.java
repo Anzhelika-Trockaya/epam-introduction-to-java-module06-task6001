@@ -23,19 +23,25 @@ public class Book {
         this.isElectronic=isElectronic;
     }
 
-    public Book(String title, String author, String genre, int pages, boolean isElectronic) {
-        if (!title.isEmpty() && !author.isEmpty() && BookGenre.isExistGenre(genre) && pages > 0) {
+    public Book(String title, String author, BookGenre genre, int pages, boolean isElectronic) {
+        if (!title.isEmpty() && !author.isEmpty() && pages > 0) {
             this.id = currentId;
             currentId++;
             this.title = title;
             this.author = author;
-            this.genre = BookGenre.valueOf(genre);
+            this.genre = genre;
             this.pages = pages;
             this.isElectronic=isElectronic;
         } else {
             throw new IllegalArgumentException("Incorrect data of book!");
         }
     }
+
+    /*public static Book parseBook(){
+        Book book;
+        ///////
+        return book;
+    }*/
 
     public long getId() {
         return id;

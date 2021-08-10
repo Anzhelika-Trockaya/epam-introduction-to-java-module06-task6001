@@ -33,3 +33,4 @@
 33|Baryshnya-krestianka|Alexander Pushkin|Short_Story|68|true
 34|Kapitanskaya dochka|Alexander Pushkin|Novel|248|false
 35|Dubrovsky|Alexander Pushkin|Novel|454|false
+36|King Stakh's Wild Hunt|Uladzimir Karatkievich|Novel|687|false

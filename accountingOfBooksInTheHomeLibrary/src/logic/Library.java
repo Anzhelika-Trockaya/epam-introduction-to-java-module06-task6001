@@ -111,15 +111,16 @@ public class Library {
     }
 
 
-    public boolean addBook(Book book) {
+    public boolean addBook(Book book) throws IOException {
         if (isNotExist(book) && book != null) {
             books.add(book);
+            Data.unloadBooks(booksFileName, books);
             return true;
         }
         return false;
     }
 
-    private boolean isNotExist(Book anyBook) {
+    boolean isNotExist(Book anyBook) {
         for (Book book : books) {
             if (anyBook.equals(book)) {
                 return false;
@@ -128,10 +129,11 @@ public class Library {
         return true;
     }
 
-    public boolean removeBook(long id) {
+    public boolean removeBook(long id) throws IOException {
         for (Book book : books) {
             if (book.getId() == id) {
                 books.remove(book);
+                Data.unloadBooks(booksFileName, books);
                 return true;
             }
         }
@@ -140,10 +142,6 @@ public class Library {
 
     public void finish() throws IOException {
         scanner.close();
-
-        Data.unloadBooks(booksFileName, books);
-        Data.unloadUsers(usersFileName, users);
-
         System.exit(0);
     }
 

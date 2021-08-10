@@ -34,31 +34,14 @@ public class AdminMenu extends UserMenu {
         }
     }
 
-    private void processOfAddingABook() {
-        String title;
-        String author;
-        String genre;
-        String pages;
+    private void processOfAddingABook() throws IOException {
         Book book;
-        String isElectronic;
         String input;
-        boolean isAdded;
 
         System.out.println(indent + "---------------  Add book ---------------");
-        System.out.println("Enter book data: ");
-        System.out.print("Title: ");
-        title = scanner.nextLine();
-        System.out.print("Author: ");
-        author = scanner.nextLine();
-        System.out.print("Genre: ");
-        genre = scanner.nextLine();
-        System.out.print("Pages: ");
-        pages = scanner.nextLine();
-        System.out.print("Is book electronic? Enter \"true\" if it is otherwise enter \"false\": ");
-        isElectronic = scanner.nextLine();
 
         try {
-            book = new Book(title, author, genre, Integer.parseInt(pages), Boolean.parseBoolean(isElectronic));
+            book = enterBook();
             if(library.addBook(book)) {
                 System.out.println(" - Book is added. - ");
                 //////////////////////////////////////send email
@@ -78,7 +61,7 @@ public class AdminMenu extends UserMenu {
         }
     }
 
-    private void processOfRemovingABook() {
+    private void processOfRemovingABook() throws IOException {
         String id;
         boolean isRemoved;
         String input;
@@ -100,6 +83,7 @@ public class AdminMenu extends UserMenu {
 
         System.out.println("\n\n - To remove another book enter 1");
         System.out.println(" - To return to the main menu enter any other symbol");
+        System.out.print("\nEnter here: ");
         input = scanner.nextLine();
         if ("1".equals(input)) {
             processOfRemovingABook();
