@@ -27,13 +27,12 @@ public class Library {
     public void start() throws IOException, InterruptedException {
         Data.loadBooks(booksFileName, books);
         Data.loadUsers(usersFileName, users);
-        System.out.println(indent+"--------------------          The home library         --------------------\n\n\n");
+        System.out.println(indent+"--------------------          The home library         --------------------\n\n\n\n");
         initializeUser();
         while (currentUser == null) {
-            System.out.println(indent+"--------------------          The home library         --------------------");
+            System.out.println(indent+"--------------------          The home library         --------------------\n\n");
             System.out.println("Incorrect login or password!");
-            System.out.println("Try again.");
-            System.out.println();
+            System.out.println("Try again.\n\n");
             initializeUser();
         }
         if (currentUser.getRole() == UserRole.Admin) {
@@ -43,7 +42,6 @@ public class Library {
         } else {
             throw new RuntimeException("Incorrect user role!");
         }
-
         menu.start();
     }
 
@@ -67,10 +65,14 @@ public class Library {
         }
     }
 
-    public void printBooks() {
-        for (Book book : books) {
-            System.out.println(book);
+    public void printBooks(int startIndex, int endIndex) {
+        for (int i = startIndex; i<=endIndex; i++) {
+            System.out.println(books.get(i));
         }
+    }
+
+    public int getNumberOfBooks(){
+        return books.size();
     }
 
     public ArrayList<Book> searchBooksByTitle(String title) {

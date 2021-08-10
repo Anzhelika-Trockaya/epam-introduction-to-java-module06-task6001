@@ -12,6 +12,7 @@ public enum BookGenre {
     Biography,
     Fairy_Tale,
     Comic,
+    Short_Story,
     Legend;
 
     public static boolean isExistGenre(String genre){

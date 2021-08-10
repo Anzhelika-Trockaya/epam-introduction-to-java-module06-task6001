@@ -9,14 +9,18 @@ import java.util.Scanner;
 public class AdminMenu extends Menu {
     protected Library library;
     protected final String indent = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+    private Scanner scanner;
 
     public AdminMenu(Library library) {
         this.library = library;
+        scanner = new Scanner(System.in);
     }
 
     public void start() throws IOException {
-        printMainMenu();
-        processInputInMainMenu();
+        while (true) {
+            printMainMenu();
+            processInputInMainMenu();
+        }
     }
 
     protected void printMainMenu() {
@@ -30,25 +34,20 @@ public class AdminMenu extends Menu {
     }
 
     protected void processInputInMainMenu() throws IOException {
-        Scanner scanner = new Scanner(System.in);
+        String input;
         System.out.print("\nEnter here: ");
-        String input = scanner.nextLine();
+        input = scanner.nextLine();
         switch (input) {
             case "1" -> processOfViewingBooks();
             case "2" -> processOfSearchingABook();
             case "3" -> processOfAddingABook();
             case "4" -> processOfRemovingABook();
-            case "0" -> {
-            }
-            default -> {
-                System.out.println("No such action " + input + "!");
-                start();
-            }
+            case "0" -> library.finish();
+            default -> System.out.println("No such action " + input + "!");
         }
     }
 
-    private void processOfAddingABook() throws IOException {
-        Scanner scanner = new Scanner(System.in);
+    private void processOfAddingABook() {
         String title;
         String author;
         String genre;
@@ -79,20 +78,15 @@ public class AdminMenu extends Menu {
         }
 
         System.out.println("\n\n - To add another book enter 1");
-        System.out.println(" - To exit enter 0");
         System.out.println(" - To return to the main menu enter any other symbol");
         System.out.print("\nEnter here: ");
         input = scanner.nextLine();
-        switch (input) {
-            case "1" -> processOfAddingABook();
-            case "0" -> {
-            }
-            default -> start();
+        if ("1".equals(input)) {
+            processOfAddingABook();
         }
     }
 
-    private void processOfRemovingABook() throws IOException {
-        Scanner scanner = new Scanner(System.in);
+    private void processOfRemovingABook() {
         String id;
         boolean isRemoved;
         String input;
@@ -112,31 +106,24 @@ public class AdminMenu extends Menu {
             System.out.println("Incorrect id " + id + "!");
         }
 
-
         System.out.println("\n\n - To remove another book enter 1");
-        System.out.println(" - To exit enter 0");
         System.out.println(" - To return to the main menu enter any other symbol");
-        scanner = new Scanner(System.in);
         input = scanner.nextLine();
-        switch (input) {
-            case "1" -> processOfRemovingABook();
-            case "0" -> {
-            }
-            default -> start();
+        if ("1".equals(input)) {
+            processOfRemovingABook();
         }
     }
 
-    private void processOfSearchingABook() throws IOException {
-        Scanner scanner = new Scanner(System.in);
+    private void processOfSearchingABook() {
         String input;
-        ArrayList<Book> foundBooks = new ArrayList<>();
+        ArrayList<Book> foundBooks;
 
         System.out.println(indent + "---------------  Search book ---------------");
         System.out.println("Select an parameter to search:");
         System.out.println(" - title - enter 1");
         System.out.println(" - author - enter 2");
         System.out.println(" - id - enter 3");
-        System.out.println("\n - To return to the main menu enter 0");
+        System.out.println("\n - To return to the main menu enter any other symbol");
 
         System.out.print("\nEnter here: ");
         input = scanner.nextLine();
@@ -144,10 +131,8 @@ public class AdminMenu extends Menu {
             case "1" -> foundBooks = searchBookByTitle(scanner);
             case "2" -> foundBooks = searchBookByAuthor(scanner);
             case "3" -> foundBooks = searchBookById(scanner);
-            case "0" -> library.finish();
             default -> {
-                System.out.println("System.out.println(\"No such action \" + input + \"!\")");
-                processOfSearchingABook();
+                return;
             }
         }
 
@@ -161,15 +146,11 @@ public class AdminMenu extends Menu {
         }
 
         System.out.println("\n\n - To search another book enter 1");
-        System.out.println(" - To exit enter 0");
         System.out.println(" - To return to the main menu enter any other symbol");
         System.out.print("\nEnter here: ");
         input = scanner.nextLine();
-        switch (input) {
-            case "1" -> processOfSearchingABook();
-            case "0" -> {
-            }
-            default -> start();
+        if ("1".equals(input)) {
+            processOfSearchingABook();
         }
     }
 
@@ -188,12 +169,10 @@ public class AdminMenu extends Menu {
     }
 
     private ArrayList<Book> searchBookById(Scanner scanner) {
-        String input;
-        Long id;
+        long id;
         System.out.print(" - Enter id: ");
-        input = scanner.nextLine();
         try {
-            id = Long.parseLong(input);
+            id = Long.parseLong(scanner.nextLine());
             return library.searchBooksById(id);
         } catch (IllegalArgumentException exception) {
             System.out.println("Incorrect id!");
@@ -201,7 +180,70 @@ public class AdminMenu extends Menu {
         }
     }
 
-    private void processOfViewingBooks() throws IOException {
+    private void processOfViewingBooks() {
+        String input;
 
+        int page = 1;
+        int numberOfPages = (int) Math.ceil((double) library.getNumberOfBooks() / 15);
+        int startIndex;
+        int endIndex;
+
+        boolean exitView = false;
+
+        while (!exitView) {
+            startIndex = (page - 1) * 15;
+            endIndex = startIndex + 14;
+
+            System.out.println(indent + "-------------    All books    ---------------");
+            System.out.println("Page " + page + " of " + numberOfPages + "\n");
+
+            if (!(endIndex >= library.getNumberOfBooks())) {
+                library.printBooks(startIndex, endIndex);
+            } else {
+                library.printBooks(startIndex, library.getNumberOfBooks() - 1);
+                for (int i = library.getNumberOfBooks(); i <= endIndex; i++) {
+                    System.out.println();
+                }
+            }
+            System.out.println();
+
+
+            if (numberOfPages <= 1) {
+                System.out.println(" - To return to the main menu enter any symbol");
+                System.out.print("\nEnter here: ");
+                scanner.nextLine();
+                exitView = true;
+            } else if (page == 1) {
+                System.out.println("                                                      - To view next page enter \"+\"");
+                System.out.println(" - To return to the main menu enter any other symbol");
+                System.out.print("\nEnter here: ");
+                input = scanner.nextLine();
+                if ("+".equals(input)) {
+                    page++;
+                } else {
+                    exitView = true;
+                }
+            } else if (page < numberOfPages) {
+                System.out.println("- To view previous page enter \"-\"                   - To view next page enter \"+\"");
+                System.out.println(" - To return to the main menu enter any other symbol");
+                System.out.print("\nEnter here: ");
+                input = scanner.nextLine();
+                switch (input) {
+                    case "-" -> page--;
+                    case "+" -> page++;
+                    default -> exitView = true;
+                }
+            } else {
+                System.out.println("- To view previous page enter \"-\"");
+                System.out.println(" - To return to the main menu enter any other symbol");
+                System.out.print("\nEnter here: ");
+                input = scanner.nextLine();
+                if ("-".equals(input)) {
+                    page--;
+                } else {
+                    exitView = true;
+                }
+            }
+        }
     }
 }
