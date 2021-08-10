@@ -18,7 +18,7 @@ import java.io.IOException;
 //• Данные аутентификации пользователей хранятся в текстовом файле. Пароль
 //не хранится в открытом виде
 public class Main {
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
         Library library = new Library();
         library.start();
         library.finish();

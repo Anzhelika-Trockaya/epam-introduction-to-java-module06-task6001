@@ -14,17 +14,18 @@ public class Library {
     private static final String usersFileName = "accountingOfBooksInTheHomeLibrary/src/data/personData.txt";
     private static final String indent = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
     private User currentUser;
-    private Menu menu;
 
-    private ArrayList<Book> books;
-    private ArrayList<User> users;
+    private final ArrayList<Book> books;
+    private final ArrayList<User> users;
 
     public Library() {
         books = new ArrayList<>();
         users = new ArrayList<>();
     }
 
-    public void start() throws IOException, InterruptedException {
+    public void start() throws IOException {
+        UserMenu menu;
+
         Data.loadBooks(booksFileName, books);
         Data.loadUsers(usersFileName, users);
         System.out.println(indent+"--------------------          The home library         --------------------\n\n\n\n");
@@ -35,6 +36,7 @@ public class Library {
             System.out.println("Try again.\n\n");
             initializeUser();
         }
+
         if (currentUser.getRole() == UserRole.Admin) {
             menu = new AdminMenu(this);
         } else if (currentUser.getRole() == UserRole.User) {
@@ -59,6 +61,7 @@ public class Library {
             if (user.getLogin().equals(login)) {
                 if (user.getPassword().equals(password)) {
                     currentUser = user;
+                    scanner.close();
                     return;
                 }
             }
