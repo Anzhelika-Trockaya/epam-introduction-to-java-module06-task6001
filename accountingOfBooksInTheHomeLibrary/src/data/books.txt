@@ -1,0 +1,8 @@
+1|Harry Potter and the Sorcerer's Stone|J.K. Rowling|Fantasy|354|false
+2|The Thorn Birds|Colleen McCullough|Novel|692|false
+3|Anna Karenina|Leo Tolstoy|Novel|864|true
+4|War and peace|Leo Tolstoy|Epic_Novel|1224|true
+5|Little Red Riding Hood|Charles Perrault|Fairy_Tale|12|false
+6|Cinderella|Charles Perrault|Fairy_Tale|25|false
+7|The Shining|Stephen King|Novel|468|true
+8|The Shining|Stephen King|Novel|455|false
