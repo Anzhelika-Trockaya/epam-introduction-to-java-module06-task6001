@@ -14,6 +14,7 @@ public class Library {
     private static final String usersFileName = "accountingOfBooksInTheHomeLibrary/src/data/personData.txt";
     private static final String indent = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
     private User currentUser;
+    private Scanner scanner;
 
     private final ArrayList<Book> books;
     private final ArrayList<User> users;
@@ -21,6 +22,7 @@ public class Library {
     public Library() {
         books = new ArrayList<>();
         users = new ArrayList<>();
+        scanner = new Scanner(System.in);
     }
 
     public void start() throws IOException {
@@ -28,10 +30,12 @@ public class Library {
 
         Data.loadBooks(booksFileName, books);
         Data.loadUsers(usersFileName, users);
-        System.out.println(indent+"--------------------          The home library         --------------------\n\n\n\n");
+
+        System.out.println(indent + "--------------------          The home library         --------------------\n\n\n\n");
         initializeUser();
+
         while (currentUser == null) {
-            System.out.println(indent+"--------------------          The home library         --------------------\n\n");
+            System.out.println(indent + "--------------------          The home library         --------------------\n\n");
             System.out.println("Incorrect login or password!");
             System.out.println("Try again.\n\n");
             initializeUser();
@@ -44,14 +48,13 @@ public class Library {
         } else {
             throw new RuntimeException("Incorrect user role!");
         }
-        menu.start();
+        menu.start(scanner);
     }
 
     private void initializeUser() {
         String login;
         String password;
 
-        Scanner scanner = new Scanner(System.in);
         System.out.print("Enter login: ");
         login = scanner.nextLine();
         System.out.print("Enter password: ");
@@ -61,7 +64,6 @@ public class Library {
             if (user.getLogin().equals(login)) {
                 if (user.getPassword().equals(password)) {
                     currentUser = user;
-                    scanner.close();
                     return;
                 }
             }
@@ -69,19 +71,19 @@ public class Library {
     }
 
     public void printBooks(int startIndex, int endIndex) {
-        for (int i = startIndex; i<=endIndex; i++) {
+        for (int i = startIndex; i <= endIndex; i++) {
             System.out.println(books.get(i));
         }
     }
 
-    public int getNumberOfBooks(){
+    public int getNumberOfBooks() {
         return books.size();
     }
 
     public ArrayList<Book> searchBooksByTitle(String title) {
         ArrayList<Book> foundBooks = new ArrayList<>();
-        for(Book book: books){
-            if(book.getTitle().toLowerCase().contains(title.toLowerCase())){
+        for (Book book : books) {
+            if (book.getTitle().toLowerCase().contains(title.toLowerCase())) {
                 foundBooks.add(book);
             }
         }
@@ -90,8 +92,8 @@ public class Library {
 
     public ArrayList<Book> searchBooksByAuthor(String author) {
         ArrayList<Book> foundBooks = new ArrayList<>();
-        for(Book book: books){
-            if(book.getAuthor().contains(author)){
+        for (Book book : books) {
+            if (book.getAuthor().contains(author)) {
                 foundBooks.add(book);
             }
         }
@@ -100,8 +102,8 @@ public class Library {
 
     public ArrayList<Book> searchBooksById(long id) {
         ArrayList<Book> foundBooks = new ArrayList<>();
-        for(Book book: books){
-            if(book.getId() == id){
+        for (Book book : books) {
+            if (book.getId() == id) {
                 foundBooks.add(book);
             }
         }
@@ -109,15 +111,26 @@ public class Library {
     }
 
 
-    public void addBook(Book book) {
-        if (book != null) {
+    public boolean addBook(Book book) {
+        if (isNotExist(book) && book != null) {
             books.add(book);
+            return true;
         }
+        return false;
     }
 
-    public boolean removeBook(long id){
+    private boolean isNotExist(Book anyBook) {
         for (Book book : books) {
-            if(book.getId()==id){
+            if (anyBook.equals(book)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean removeBook(long id) {
+        for (Book book : books) {
+            if (book.getId() == id) {
                 books.remove(book);
                 return true;
             }
@@ -126,14 +139,17 @@ public class Library {
     }
 
     public void finish() throws IOException {
+        scanner.close();
+
         Data.unloadBooks(booksFileName, books);
         Data.unloadUsers(usersFileName, users);
+
         System.exit(0);
     }
 
-    public String getAdminEmail(){
-        for(User user: users){
-            if(user.getRole()==UserRole.Admin){
+    public String getAdminEmail() {
+        for (User user : users) {
+            if (user.getRole() == UserRole.Admin) {
                 return user.getEmail();
             }
         }

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Book {
     private static long currentId = 1;
     private long id;
@@ -89,5 +91,22 @@ public class Book {
                 ", pages=" + pages +
                 ", isElectronic="+ isElectronic +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return pages == book.pages &&
+                isElectronic == book.isElectronic &&
+                title.equals(book.title) &&
+                author.equals(book.author) &&
+                genre == book.genre;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, author, genre, pages, isElectronic);
     }
 }

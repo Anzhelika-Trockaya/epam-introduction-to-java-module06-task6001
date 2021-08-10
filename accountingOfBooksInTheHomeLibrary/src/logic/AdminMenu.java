@@ -29,10 +29,7 @@ public class AdminMenu extends UserMenu {
             case "2" -> processOfSearchingABook();
             case "3" -> processOfAddingABook();
             case "4" -> processOfRemovingABook();
-            case "0" -> {
-                scanner.close();
-                library.finish();
-            }
+            case "0" -> library.finish();
             default -> System.out.println("No such action " + input + "!");
         }
     }
@@ -45,6 +42,7 @@ public class AdminMenu extends UserMenu {
         Book book;
         String isElectronic;
         String input;
+        boolean isAdded;
 
         System.out.println(indent + "---------------  Add book ---------------");
         System.out.println("Enter book data: ");
@@ -61,9 +59,12 @@ public class AdminMenu extends UserMenu {
 
         try {
             book = new Book(title, author, genre, Integer.parseInt(pages), Boolean.parseBoolean(isElectronic));
-            library.addBook(book);
-            System.out.println(" - Book is added. - ");
-            //////////////////////////////////////send email
+            if(library.addBook(book)) {
+                System.out.println(" - Book is added. - ");
+                //////////////////////////////////////send email
+            } else{
+                System.out.println(" - Book is not added! Maybe such a book already exists. - ");
+            }
         } catch (IllegalArgumentException exception) {
             System.out.println(" - Book not added! Incorrect data of book! - ");
         }

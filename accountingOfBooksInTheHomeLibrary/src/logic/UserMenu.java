@@ -13,10 +13,10 @@ public class UserMenu {
 
     protected UserMenu(Library library) {
         this.library = library;
-        scanner = new Scanner(System.in);
     }
 
-    public void start() throws IOException {
+    public void start(Scanner scanner) throws IOException {
+        this.scanner=scanner;
         while (true) {
             printMainMenu();
             processInputInMainMenu();
@@ -40,10 +40,7 @@ public class UserMenu {
             case "1" -> processOfViewingBooks();
             case "2" -> processOfSearchingABook();
             case "3" -> processOfSuggestABook();
-            case "0" -> {
-                scanner.close();
-                library.finish();
-            }
+            case "0" -> library.finish();
             default -> System.out.println("No such action " + input + "!");
         }
     }
