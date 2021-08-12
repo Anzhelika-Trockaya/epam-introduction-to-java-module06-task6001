@@ -8,8 +8,7 @@ import model.UserRole;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Data {
-
+public class DataUtil {
 
     public static void loadBooks(String booksFileName, ArrayList<Book> books) throws IOException {
         String[] bookStringArray;
@@ -107,12 +106,16 @@ public class Data {
         for (int i = 0; i < decryptedPassword.length(); i++) {
             for (int j = 0; j < 62; j++) {
                 if (symbols[j] == decryptedPasswordChars[i]) {
-                    encryptedPasswordChars[i] = j >= 7 ? symbols[j - 7] : symbols[62 + j - 7];
+                    encryptedPasswordChars[i] = ((j >= 7) ? symbols[j - 7] : symbols[62 + j - 7]);
                 }
             }
         }
 
         encryptedPassword = String.valueOf(encryptedPasswordChars);
         return encryptedPassword;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(decryptPassword("oiWE254f"));
     }
 }

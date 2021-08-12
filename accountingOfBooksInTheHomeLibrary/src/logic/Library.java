@@ -1,6 +1,6 @@
 package logic;
 
-import data.Data;
+import data.DataUtil;
 import model.Book;
 import model.User;
 import model.UserRole;
@@ -48,8 +48,8 @@ public class Library {
     public void start() throws IOException {
         UserMenu menu;
 
-        Data.loadBooks(booksFileName, books);
-        Data.loadUsers(usersFileName, users);
+        DataUtil.loadBooks(booksFileName, books);
+        DataUtil.loadUsers(usersFileName, users);
 
         System.out.println(indent + "--------------------          The home library         --------------------\n\n\n\n");
         initializeUser();
@@ -128,7 +128,7 @@ public class Library {
     boolean addBook(Book book) throws IOException {
         if (isNotExistBook(book) && book != null) {
             books.add(book);
-            Data.unloadBooks(booksFileName, books);
+            DataUtil.unloadBooks(booksFileName, books);
             return true;
         }
         return false;
@@ -147,7 +147,7 @@ public class Library {
         for (Book book : books) {
             if (book.getId() == id) {
                 books.remove(book);
-                Data.unloadBooks(booksFileName, books);
+                DataUtil.unloadBooks(booksFileName, books);
                 return true;
             }
         }
