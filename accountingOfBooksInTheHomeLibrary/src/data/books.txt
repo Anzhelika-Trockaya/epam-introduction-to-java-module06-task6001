@@ -34,3 +34,5 @@
 34|Kapitanskaya dochka|Alexander Pushkin|Novel|248|false
 35|Dubrovsky|Alexander Pushkin|Novel|454|false
 36|King Stakh's Wild Hunt|Uladzimir Karatkievich|Novel|687|false
+37|Thumbelina|Hans Christian Andersen|Fairy_Tale|24|false
+38|The Snow Queen|Hans Christian Andersen|Fairy_Tale|124|false

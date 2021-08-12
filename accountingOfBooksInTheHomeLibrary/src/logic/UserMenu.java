@@ -3,6 +3,7 @@ package logic;
 import model.Book;
 import model.BookGenre;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 public class UserMenu {
     protected Library library;
     protected final String indent = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+
     protected Scanner scanner;
 
     protected UserMenu(Library library) {
@@ -17,20 +19,15 @@ public class UserMenu {
     }
 
     public void start(Scanner scanner) throws IOException {
-        this.scanner=scanner;
+        this.scanner = scanner;
         while (true) {
-            printMainMenu();
+            printMainMenuText();
             processInputInMainMenu();
         }
     }
 
-    protected void printMainMenu() {
-        System.out.println(indent + "----------------   MENU   ----------------");
-        System.out.println(" - To view books enter 1");
-        System.out.println(" - To search book enter 2");
-        System.out.println(" - To suggest a book enter 3");
-        System.out.println();
-        System.out.println(" - To exit enter 0");
+    protected void printMainMenuText() {
+        System.out.println(MenuText.UserMainMenu.getText());
     }
 
     protected void processInputInMainMenu() throws IOException {
@@ -38,7 +35,7 @@ public class UserMenu {
         System.out.print("\nEnter here: ");
         input = scanner.nextLine();
         switch (input) {
-            case "1" -> processOfViewingBooks();
+            case "1" -> processOfViewingBooks("-------------    All books    ---------------", library.getBooks());
             case "2" -> processOfSearchingABook();
             case "3" -> processOfSuggestABook();
             case "0" -> library.finish();
@@ -50,13 +47,7 @@ public class UserMenu {
         String input;
         ArrayList<Book> foundBooks;
 
-        System.out.println(indent + "---------------  Search book ---------------");
-        System.out.println("Select an parameter to search:");
-        System.out.println(" - title - enter 1");
-        System.out.println(" - author - enter 2");
-        System.out.println(" - id - enter 3");
-        System.out.println("\n - To return to the main menu enter any other symbol");
-
+        System.out.println(MenuText.SearchBookMenu.getText());
         System.out.print("\nEnter here: ");
         input = scanner.nextLine();
         switch (input) {
@@ -69,16 +60,13 @@ public class UserMenu {
         }
 
         if (!foundBooks.isEmpty()) {
-            System.out.println("\n\n--------     Found books:     --------");
-            for (Book book : foundBooks) {
-                System.out.println(book);
-            }
+            processOfViewingBooks("\n\n--------     Found books:     --------", foundBooks);
         } else {
             System.out.println("No books found!");
         }
 
         System.out.println("\n\n - To search another book enter 1");
-        System.out.println(" - To return to the main menu enter any other symbol");
+        System.out.println(" - To return enter any other symbol");
         System.out.print("\nEnter here: ");
         input = scanner.nextLine();
         if ("1".equals(input)) {
@@ -112,11 +100,11 @@ public class UserMenu {
         }
     }
 
-    protected void processOfViewingBooks() {
+    protected void processOfViewingBooks(String categoryName, ArrayList<Book> books) {
         String input;
 
         int page = 1;
-        int numberOfPages = (int) Math.ceil((double) library.getNumberOfBooks() / 15);
+        int numberOfPages = (int) Math.ceil((double) books.size() / 15);
         int startIndex;
         int endIndex;
 
@@ -126,13 +114,13 @@ public class UserMenu {
             startIndex = (page - 1) * 15;
             endIndex = startIndex + 14;
 
-            System.out.println(indent + "-------------    All books    ---------------");
+            System.out.println(indent + categoryName);
             System.out.println("Page " + page + " of " + numberOfPages + "\n");
 
-            if (!(endIndex >= library.getNumberOfBooks())) {
-                library.printBooks(startIndex, endIndex);
+            if (!(endIndex >= books.size())) {
+                printBooks(books, startIndex, endIndex);
             } else {
-                library.printBooks(startIndex, library.getNumberOfBooks() - 1);
+                printBooks(books, startIndex, books.size() - 1);
                 for (int i = library.getNumberOfBooks(); i <= endIndex; i++) {
                     System.out.println();
                 }
@@ -141,13 +129,13 @@ public class UserMenu {
 
 
             if (numberOfPages <= 1) {
-                System.out.println(" - To return to the main menu enter any symbol");
+                System.out.println(" - To return enter any symbol");
                 System.out.print("\nEnter here: ");
                 scanner.nextLine();
                 exitView = true;
             } else if (page == 1) {
-                System.out.println("                                                      - To view next page enter \"+\"");
-                System.out.println(" - To return to the main menu enter any other symbol");
+                System.out.println("                                                 NEXT \"+\"");
+                System.out.println(" - To return enter any other symbol");
                 System.out.print("\nEnter here: ");
                 input = scanner.nextLine();
                 if ("+".equals(input)) {
@@ -156,8 +144,8 @@ public class UserMenu {
                     exitView = true;
                 }
             } else if (page < numberOfPages) {
-                System.out.println("- To view previous page enter \"-\"                   - To view next page enter \"+\"");
-                System.out.println(" - To return to the main menu enter any other symbol");
+                System.out.println("    PREVIOUS \"-\"                               NEXT \"+\"");
+                System.out.println(" - To return enter any other symbol");
                 System.out.print("\nEnter here: ");
                 input = scanner.nextLine();
                 switch (input) {
@@ -166,8 +154,8 @@ public class UserMenu {
                     default -> exitView = true;
                 }
             } else {
-                System.out.println("- To view previous page enter \"-\"");
-                System.out.println(" - To return to the main menu enter any other symbol");
+                System.out.println("    PREVIOUS \"-\"");
+                System.out.println(" - To return enter any other symbol");
                 System.out.print("\nEnter here: ");
                 input = scanner.nextLine();
                 if ("-".equals(input)) {
@@ -179,45 +167,90 @@ public class UserMenu {
         }
     }
 
-    private void processOfSuggestABook(){
-        String adminEmail = library.getAdminEmail();
-        Book book;
 
-        System.out.println(indent+"---------------    Suggest a book    ---------------");
-        try{
-            book=enterBook();
-            if(library.isNotExist(book)){
-                ////////////////////////send email
-                System.out.println(" - The suggestion sent to the administrator. -");
-            } else{
-                System.out.println(" - The suggestion not sent! Book with this data is exist! -");
-            }
-        } catch(IllegalArgumentException exception){
-            System.out.println(" - The suggestion not sent! Incorrect data of book! - ");
+    public void printBooks(ArrayList<Book> books, int startIndex, int endIndex) {
+        for (int i = startIndex; i <= endIndex; i++) {
+            System.out.println(books.get(i));
         }
     }
-     protected Book enterBook(){
-         String title;
-         String author;
-         String genre;
-         String pages;
-         String isElectronic;
-         Book book;
 
-         System.out.println("Enter book data: ");
-         System.out.print("Title: ");
-         title = scanner.nextLine();
-         System.out.print("Author: ");
-         author = scanner.nextLine();
-         System.out.print("Genre: ");
-         genre = scanner.nextLine();
-         System.out.print("Pages: ");
-         pages = scanner.nextLine();
-         System.out.print("Is book electronic? Enter \"true\" if it is otherwise enter \"false\": ");
-         isElectronic = scanner.nextLine();
+    private void processOfSuggestABook() {
+        String input;
+        Book book;
 
-         book = new Book(title, author, BookGenre.valueOf(genre), Integer.parseInt(pages), Boolean.parseBoolean(isElectronic));
+        System.out.println(indent + "---------------    Suggest a book    ---------------");
+        try {
+            book = enterBook();
+            if (library.isNotExistBook(book)) {
+                sendSuggestion(book);
+            } else {
+                System.out.println(" - The suggestion not sent! Book with this data is exist! -");
+            }
+        } catch (IllegalArgumentException exception) {
+            System.out.println(" - The suggestion not sent! Incorrect data of book! - ");
+        }
 
-         return book;
-     }
+        System.out.println("\n\n - To suggest another book enter 1");
+        System.out.println(" - To return enter any other symbol");
+        System.out.print("\nEnter here: ");
+        input = scanner.nextLine();
+        if ("1".equals(input)) {
+            processOfSuggestABook();
+        }
+    }
+
+    private void sendSuggestion(Book book) {
+        try {
+            sendEmail(library.getAdminsEmails(),
+                    "The home library",
+                    library.getCurrentUser().getName() + " suggest the book:\n" + book);
+            System.out.println(" - The suggestion sent to the administrator. -");
+        } catch (Exception ex) {
+            String input;
+            System.out.println(" - The suggestion not sent! -\n");
+            System.out.println(" - To try again enter 1");
+            System.out.println(" - To return enter any other symbol");
+            System.out.print("\nEnter here:");
+
+            input = scanner.nextLine();
+            if (input.equals("1")) {
+                sendSuggestion(book);
+            }
+        }
+    }
+
+    protected void sendEmail(String[] recipientsEmails, String subject, String text) throws MessagingException {
+        String password;
+        System.out.println("\nTo send the message enter your Email password:");
+        System.out.println("Login: " + library.getCurrentUser().getEmail());
+        System.out.print("Password: ");
+        password = scanner.nextLine();
+
+        MailUtil.sendMail(library.getCurrentUser().getEmail(), password, recipientsEmails, subject, text);
+    }
+
+    protected Book enterBook() {
+        String title;
+        String author;
+        String genre;
+        String pages;
+        String isElectronic;
+        Book book;
+
+        System.out.println("Enter book data: ");
+        System.out.print("Title: ");
+        title = scanner.nextLine();
+        System.out.print("Author: ");
+        author = scanner.nextLine();
+        System.out.print("Genre: ");
+        genre = scanner.nextLine();
+        System.out.print("Pages: ");
+        pages = scanner.nextLine();
+        System.out.print("Is book electronic? Enter \"true\" if it is otherwise enter \"false\": ");
+        isElectronic = scanner.nextLine();
+
+        book = new Book(title, author, BookGenre.valueOf(genre), Integer.parseInt(pages), Boolean.parseBoolean(isElectronic));
+
+        return book;
+    }
 }

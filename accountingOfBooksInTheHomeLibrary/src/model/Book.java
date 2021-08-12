@@ -37,12 +37,6 @@ public class Book {
         }
     }
 
-    /*public static Book parseBook(){
-        Book book;
-        ///////
-        return book;
-    }*/
-
     public long getId() {
         return id;
     }

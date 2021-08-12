@@ -25,6 +25,14 @@ public class Library {
         scanner = new Scanner(System.in);
     }
 
+    ArrayList<Book> getBooks() {
+        return books;
+    }
+
+    User getCurrentUser() {
+        return currentUser;
+    }
+
     public void start() throws IOException {
         UserMenu menu;
 
@@ -70,12 +78,6 @@ public class Library {
         }
     }
 
-    public void printBooks(int startIndex, int endIndex) {
-        for (int i = startIndex; i <= endIndex; i++) {
-            System.out.println(books.get(i));
-        }
-    }
-
     public int getNumberOfBooks() {
         return books.size();
     }
@@ -112,7 +114,7 @@ public class Library {
 
 
     public boolean addBook(Book book) throws IOException {
-        if (isNotExist(book) && book != null) {
+        if (isNotExistBook(book) && book != null) {
             books.add(book);
             Data.unloadBooks(booksFileName, books);
             return true;
@@ -120,7 +122,7 @@ public class Library {
         return false;
     }
 
-    boolean isNotExist(Book anyBook) {
+    boolean isNotExistBook(Book anyBook) {
         for (Book book : books) {
             if (anyBook.equals(book)) {
                 return false;
@@ -145,12 +147,29 @@ public class Library {
         System.exit(0);
     }
 
-    public String getAdminEmail() {
+    public String[] getAdminsEmails() {
+        ArrayList<String> emails = new ArrayList<>();
         for (User user : users) {
             if (user.getRole() == UserRole.Admin) {
-                return user.getEmail();
+                emails.add(user.getEmail());
             }
         }
-        throw new RuntimeException("Admin is not exist!");
+        if (!emails.isEmpty()) {
+            return emails.toArray(String[]::new);
+        } else {
+            throw new RuntimeException("Admin is not exist!");
+        }
+    }
+
+    public String[] getOtherUsersEmails() {
+        String[] emails = new String[users.size() - 1];
+        int i = 0;
+        for (User user : users) {
+            if (!user.equals(currentUser)) {
+                emails[i] = user.getEmail();
+                i++;
+            }
+        }
+        return emails;
     }
 }

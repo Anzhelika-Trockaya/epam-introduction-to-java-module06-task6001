@@ -2,6 +2,7 @@ package logic;
 
 import model.Book;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 
 public class AdminMenu extends UserMenu {
@@ -10,22 +11,17 @@ public class AdminMenu extends UserMenu {
        super(library);
     }
 
-    protected void printMainMenu() {
-        System.out.println(indent + "----------------   MENU   ----------------");
-        System.out.println(" - To view books enter 1");
-        System.out.println(" - To search book enter 2");
-        System.out.println(" - To add book enter 3");
-        System.out.println(" - To remove book enter 4");
-        System.out.println();
-        System.out.println(" - To exit enter 0");
+    protected void printMainMenuText() {
+        System.out.println(MenuText.AdminMainMenu.getText());
     }
 
     protected void processInputInMainMenu() throws IOException {
         String input;
+
         System.out.print("\nEnter here: ");
         input = scanner.nextLine();
         switch (input) {
-            case "1" -> processOfViewingBooks();
+            case "1" -> processOfViewingBooks("-------------    All books    ---------------",library.getBooks());
             case "2" -> processOfSearchingABook();
             case "3" -> processOfAddingABook();
             case "4" -> processOfRemovingABook();
@@ -44,16 +40,20 @@ public class AdminMenu extends UserMenu {
             book = enterBook();
             if(library.addBook(book)) {
                 System.out.println(" - Book is added. - ");
-                //////////////////////////////////////send email
+                sendEmail(library.getOtherUsersEmails(),
+                        "The home library",
+                        "Administrator "+library.getCurrentUser().getName()+" added new book:\n"+book);
             } else{
                 System.out.println(" - Book is not added! Maybe such a book already exists. - ");
             }
         } catch (IllegalArgumentException exception) {
             System.out.println(" - Book not added! Incorrect data of book! - ");
+        } catch (MessagingException e) {
+            System.out.println(" - Message not sent!");
         }
 
         System.out.println("\n\n - To add another book enter 1");
-        System.out.println(" - To return to the main menu enter any other symbol");
+        System.out.println(" - To return enter any other symbol");
         System.out.print("\nEnter here: ");
         input = scanner.nextLine();
         if ("1".equals(input)) {
@@ -82,7 +82,7 @@ public class AdminMenu extends UserMenu {
         }
 
         System.out.println("\n\n - To remove another book enter 1");
-        System.out.println(" - To return to the main menu enter any other symbol");
+        System.out.println(" - To return enter any other symbol");
         System.out.print("\nEnter here: ");
         input = scanner.nextLine();
         if ("1".equals(input)) {
