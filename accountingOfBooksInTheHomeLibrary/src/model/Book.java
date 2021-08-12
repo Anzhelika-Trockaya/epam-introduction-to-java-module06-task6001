@@ -20,7 +20,7 @@ public class Book {
         if (currentId <= id) {
             currentId = id + 1;
         }
-        this.isElectronic=isElectronic;
+        this.isElectronic = isElectronic;
     }
 
     public Book(String title, String author, BookGenre genre, int pages, boolean isElectronic) {
@@ -31,7 +31,7 @@ public class Book {
             this.author = author;
             this.genre = genre;
             this.pages = pages;
-            this.isElectronic=isElectronic;
+            this.isElectronic = isElectronic;
         } else {
             throw new IllegalArgumentException("Incorrect data of book!");
         }
@@ -77,7 +77,7 @@ public class Book {
         this.pages = pages;
     }
 
-    public boolean isElectronic(){
+    public boolean isElectronic() {
         return isElectronic;
     }
 
@@ -89,7 +89,7 @@ public class Book {
                 ", author='" + author + '\'' +
                 ", genre=" + genre +
                 ", pages=" + pages +
-                ", isElectronic="+ isElectronic +
+                ", isElectronic=" + isElectronic +
                 '}';
     }
 

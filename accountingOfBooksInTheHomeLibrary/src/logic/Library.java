@@ -14,7 +14,11 @@ public class Library {
     private static final String usersFileName = "accountingOfBooksInTheHomeLibrary/src/data/personData.txt";
     private static final String indent = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
     private User currentUser;
-    private Scanner scanner;
+    private final Scanner scanner;
+
+    private static final String libraryMailAddress = "trockaya.test@gmail.com";
+    private static final String libraryMailPassword = "test147T";
+
 
     private final ArrayList<Book> books;
     private final ArrayList<User> users;
@@ -31,6 +35,14 @@ public class Library {
 
     User getCurrentUser() {
         return currentUser;
+    }
+
+    static String getLibraryMailAddress() {
+        return libraryMailAddress;
+    }
+
+    static String getLibraryMailPassword() {
+        return libraryMailPassword;
     }
 
     public void start() throws IOException {
@@ -78,11 +90,11 @@ public class Library {
         }
     }
 
-    public int getNumberOfBooks() {
+    int getNumberOfBooks() {
         return books.size();
     }
 
-    public ArrayList<Book> searchBooksByTitle(String title) {
+    ArrayList<Book> searchBooksByTitle(String title) {
         ArrayList<Book> foundBooks = new ArrayList<>();
         for (Book book : books) {
             if (book.getTitle().toLowerCase().contains(title.toLowerCase())) {
@@ -92,7 +104,7 @@ public class Library {
         return foundBooks;
     }
 
-    public ArrayList<Book> searchBooksByAuthor(String author) {
+    ArrayList<Book> searchBooksByAuthor(String author) {
         ArrayList<Book> foundBooks = new ArrayList<>();
         for (Book book : books) {
             if (book.getAuthor().contains(author)) {
@@ -102,7 +114,7 @@ public class Library {
         return foundBooks;
     }
 
-    public ArrayList<Book> searchBooksById(long id) {
+    ArrayList<Book> searchBooksById(long id) {
         ArrayList<Book> foundBooks = new ArrayList<>();
         for (Book book : books) {
             if (book.getId() == id) {
@@ -113,7 +125,7 @@ public class Library {
     }
 
 
-    public boolean addBook(Book book) throws IOException {
+    boolean addBook(Book book) throws IOException {
         if (isNotExistBook(book) && book != null) {
             books.add(book);
             Data.unloadBooks(booksFileName, books);
@@ -131,7 +143,7 @@ public class Library {
         return true;
     }
 
-    public boolean removeBook(long id) throws IOException {
+    boolean removeBook(long id) throws IOException {
         for (Book book : books) {
             if (book.getId() == id) {
                 books.remove(book);
@@ -142,12 +154,12 @@ public class Library {
         return false;
     }
 
-    public void finish() throws IOException {
+    public void finish() {
         scanner.close();
         System.exit(0);
     }
 
-    public String[] getAdminsEmails() {
+    String[] getAdminsEmails() {
         ArrayList<String> emails = new ArrayList<>();
         for (User user : users) {
             if (user.getRole() == UserRole.Admin) {
@@ -161,7 +173,7 @@ public class Library {
         }
     }
 
-    public String[] getOtherUsersEmails() {
+    String[] getOtherUsersEmails() {
         String[] emails = new String[users.size() - 1];
         int i = 0;
         for (User user : users) {

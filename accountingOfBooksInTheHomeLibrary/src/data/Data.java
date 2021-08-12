@@ -43,7 +43,7 @@ public class Data {
                         book.getAuthor() + "|" +
                         book.getGenre() + "|" +
                         book.getPages() + "|" +
-                        book.isElectronic()+"\n";
+                        book.isElectronic() + "\n";
                 writer.write(bookString);
             }
         }
@@ -73,7 +73,7 @@ public class Data {
     public static void unloadUsers(String usersFileName, ArrayList<User> users) throws IOException {
         String userString;
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(usersFileName))) {
-            for (User user: users) {
+            for (User user : users) {
                 userString = user.getLogin() + "|" + user.getName() + "|" + user.getEmail() + "|" + user.getRole() + "|" + encryptPassword(user.getPassword()) + "\n";
                 writer.write(userString);
             }

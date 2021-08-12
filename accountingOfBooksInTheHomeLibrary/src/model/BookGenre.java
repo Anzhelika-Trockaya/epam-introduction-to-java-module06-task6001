@@ -15,9 +15,9 @@ public enum BookGenre {
     Short_Story,
     Legend;
 
-    public static boolean isExistGenre(String genre){
-        for(BookGenre genre1: values()){
-            if(genre1.toString().equals(genre)){
+    public static boolean isExistGenre(String genre) {
+        for (BookGenre genre1 : values()) {
+            if (genre1.toString().equals(genre)) {
                 return true;
             }
         }

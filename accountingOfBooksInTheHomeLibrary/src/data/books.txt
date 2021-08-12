@@ -36,3 +36,4 @@
 36|King Stakh's Wild Hunt|Uladzimir Karatkievich|Novel|687|false
 37|Thumbelina|Hans Christian Andersen|Fairy_Tale|24|false
 38|The Snow Queen|Hans Christian Andersen|Fairy_Tale|124|false
+39|The Little Mermaid|Hans Christian Andersen|Fairy_Tale|8|true

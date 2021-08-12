@@ -2,32 +2,41 @@ package logic;
 
 public enum MenuText {
 
-    UserMainMenu("----------------   MENU   ----------------\n" +
-            " - To view books enter 1\n"+
-            " - To search book enter 2\n"+
-            " - To suggest a book enter 3\n\n"+
-            " - To exit enter 0\n"),
-    AdminMainMenu("----------------   MENU   ----------------\n" +
-            " - To view books enter 1\n"+
-            " - To search book enter 2\n"+
-            " - To add book enter 3\n"+
-            " - To remove book enter 4\n\n"+
-            " - To exit enter 0\n"),
-    SearchBookMenu("---------------  Search book ---------------\n"+
-        "Select an parameter to search:\n"+
-        " - title - enter 1\n"+
-        " - author - enter 2\n"+
-        " - id - enter 3\n\n"+
-        " - To return to the main menu enter any other symbol\n"),
+    UserMainMenu("""
+            ----------------   MENU   ----------------
+             - To view books enter 1
+             - To search book enter 2
+             - To suggest a book enter 3
+
+             - To exit enter 0
+            """),
+    AdminMainMenu("""
+            ----------------   MENU   ----------------
+             - To view books enter 1
+             - To search book enter 2
+             - To add book enter 3
+             - To remove book enter 4
+
+             - To exit enter 0
+            """),
+    SearchBookMenu("""
+            ---------------  Search book ---------------
+            Select an parameter to search:
+             - title - enter 1
+             - author - enter 2
+             - id - enter 3
+
+             - To return to the main menu enter any other symbol
+            """),
 
 
     ;
-    private String text;
-    private final String indent="\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+    private final String text;
 
 
     MenuText(String text) {
-        this.text=indent+text;
+        String indent = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+        this.text= indent +text;
     }
     public String getText(){
         return text;

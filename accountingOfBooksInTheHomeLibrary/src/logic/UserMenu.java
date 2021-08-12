@@ -3,7 +3,6 @@ package logic;
 import model.Book;
 import model.BookGenre;
 
-import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -200,10 +199,11 @@ public class UserMenu {
     }
 
     private void sendSuggestion(Book book) {
+        String subject = "The home library";
+        String text = library.getCurrentUser().getName() + " suggest the book:\n" + book;
         try {
-            sendEmail(library.getAdminsEmails(),
-                    "The home library",
-                    library.getCurrentUser().getName() + " suggest the book:\n" + book);
+            System.out.println(" - Sending messages. Loading ...");
+            MailUtil.sendMail(Library.getLibraryMailAddress(), Library.getLibraryMailPassword(), library.getAdminsEmails(), subject, text);
             System.out.println(" - The suggestion sent to the administrator. -");
         } catch (Exception ex) {
             String input;
@@ -217,16 +217,6 @@ public class UserMenu {
                 sendSuggestion(book);
             }
         }
-    }
-
-    protected void sendEmail(String[] recipientsEmails, String subject, String text) throws MessagingException {
-        String password;
-        System.out.println("\nTo send the message enter your Email password:");
-        System.out.println("Login: " + library.getCurrentUser().getEmail());
-        System.out.print("Password: ");
-        password = scanner.nextLine();
-
-        MailUtil.sendMail(library.getCurrentUser().getEmail(), password, recipientsEmails, subject, text);
     }
 
     protected Book enterBook() {

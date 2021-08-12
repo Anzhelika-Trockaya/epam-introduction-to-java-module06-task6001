@@ -8,7 +8,7 @@ import java.io.IOException;
 public class AdminMenu extends UserMenu {
 
     public AdminMenu(Library library) {
-       super(library);
+        super(library);
     }
 
     protected void printMainMenuText() {
@@ -21,7 +21,7 @@ public class AdminMenu extends UserMenu {
         System.out.print("\nEnter here: ");
         input = scanner.nextLine();
         switch (input) {
-            case "1" -> processOfViewingBooks("-------------    All books    ---------------",library.getBooks());
+            case "1" -> processOfViewingBooks("-------------    All books    ---------------", library.getBooks());
             case "2" -> processOfSearchingABook();
             case "3" -> processOfAddingABook();
             case "4" -> processOfRemovingABook();
@@ -33,17 +33,21 @@ public class AdminMenu extends UserMenu {
     private void processOfAddingABook() throws IOException {
         Book book;
         String input;
+        String subject;
+        String text;
 
         System.out.println(indent + "---------------  Add book ---------------");
 
         try {
             book = enterBook();
-            if(library.addBook(book)) {
+            if (library.addBook(book)) {
                 System.out.println(" - Book is added. - ");
-                sendEmail(library.getOtherUsersEmails(),
-                        "The home library",
-                        "Administrator "+library.getCurrentUser().getName()+" added new book:\n"+book);
-            } else{
+                System.out.println(" - Sending messages. Loading ...");
+                subject = "The home library";
+                text = "Administrator " + library.getCurrentUser().getName() + " added new book:\n" + book;
+                MailUtil.sendMail(Library.getLibraryMailAddress(), Library.getLibraryMailPassword(), library.getOtherUsersEmails(), subject, text);
+                System.out.println(" - Notifications sent.");
+            } else {
                 System.out.println(" - Book is not added! Maybe such a book already exists. - ");
             }
         } catch (IllegalArgumentException exception) {
