@@ -1,17 +1,17 @@
-package logic;
+package com.epam.task6001.logic;
 
-import data.DataUtil;
-import model.Book;
-import model.User;
-import model.UserRole;
+import com.epam.task6001.data.DataUtil;
+import com.epam.task6001.model.Book;
+import com.epam.task6001.model.User;
+import com.epam.task6001.model.UserRole;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Library {
-    private static final String booksFileName = "accountingOfBooksInTheHomeLibrary/src/data/books.txt";
-    private static final String usersFileName = "accountingOfBooksInTheHomeLibrary/src/data/personData.txt";
+    private static final String booksFileName = "accountingOfBooksInTheHomeLibrary/src/com/epam/task6001/data/books.txt";
+    private static final String usersFileName = "accountingOfBooksInTheHomeLibrary/src/com/epam/task6001/data/personData.txt";
     private static final String indent = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
     private User currentUser;
     private final Scanner scanner;

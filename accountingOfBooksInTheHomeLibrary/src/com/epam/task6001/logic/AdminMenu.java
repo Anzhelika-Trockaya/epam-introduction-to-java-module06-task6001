@@ -1,6 +1,6 @@
-package logic;
+package com.epam.task6001.logic;
 
-import model.Book;
+import com.epam.task6001.model.Book;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
@@ -51,7 +51,7 @@ public class AdminMenu extends UserMenu {
                 System.out.println(" - Book is not added! Maybe such a book already exists. - ");
             }
         } catch (IllegalArgumentException exception) {
-            System.out.println(" - Book not added! Incorrect data of book! - ");
+            System.out.println(" - Book not added! Incorrect com.epam.task6001.data of book! - ");
         } catch (MessagingException e) {
             System.out.println(" - Message not sent!");
         }

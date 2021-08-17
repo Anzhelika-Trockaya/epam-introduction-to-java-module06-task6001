@@ -1,4 +1,4 @@
-package logic;
+package com.epam.task6001.logic;
 
 import javax.mail.*;
 import javax.mail.internet.*;

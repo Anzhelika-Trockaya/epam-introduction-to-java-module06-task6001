@@ -1,9 +1,9 @@
-package data;
+package com.epam.task6001.data;
 
-import model.Book;
-import model.BookGenre;
-import model.User;
-import model.UserRole;
+import com.epam.task6001.model.Book;
+import com.epam.task6001.model.BookGenre;
+import com.epam.task6001.model.User;
+import com.epam.task6001.model.UserRole;
 
 import java.io.*;
 import java.util.ArrayList;

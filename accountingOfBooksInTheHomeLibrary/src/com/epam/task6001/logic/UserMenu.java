@@ -1,7 +1,7 @@
-package logic;
+package com.epam.task6001.logic;
 
-import model.Book;
-import model.BookGenre;
+import com.epam.task6001.model.Book;
+import com.epam.task6001.model.BookGenre;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -183,10 +183,10 @@ public class UserMenu {
             if (library.isNotExistBook(book)) {
                 sendSuggestion(book);
             } else {
-                System.out.println(" - The suggestion not sent! Book with this data is exist! -");
+                System.out.println(" - The suggestion not sent! Book with this com.epam.task6001.data is exist! -");
             }
         } catch (IllegalArgumentException exception) {
-            System.out.println(" - The suggestion not sent! Incorrect data of book! - ");
+            System.out.println(" - The suggestion not sent! Incorrect com.epam.task6001.data of book! - ");
         }
 
         System.out.println("\n\n - To suggest another book enter 1");
@@ -227,7 +227,7 @@ public class UserMenu {
         String isElectronic;
         Book book;
 
-        System.out.println("Enter book data: ");
+        System.out.println("Enter book com.epam.task6001.data: ");
         System.out.print("Title: ");
         title = scanner.nextLine();
         System.out.print("Author: ");

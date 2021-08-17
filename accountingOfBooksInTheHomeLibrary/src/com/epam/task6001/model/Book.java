@@ -1,4 +1,4 @@
-package model;
+package com.epam.task6001.model;
 
 import java.util.Objects;
 
@@ -33,7 +33,7 @@ public class Book {
             this.pages = pages;
             this.isElectronic = isElectronic;
         } else {
-            throw new IllegalArgumentException("Incorrect data of book!");
+            throw new IllegalArgumentException("Incorrect com.epam.task6001.data of book!");
         }
     }
 

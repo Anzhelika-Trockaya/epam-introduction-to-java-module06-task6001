@@ -1,4 +1,4 @@
-package model;
+package com.epam.task6001.model;
 
 public class User {
     private final String login;

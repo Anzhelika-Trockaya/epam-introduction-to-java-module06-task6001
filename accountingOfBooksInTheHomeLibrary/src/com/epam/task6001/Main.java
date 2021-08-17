@@ -1,4 +1,6 @@
-import logic.Library;
+package com.epam.task6001;
+
+import com.epam.task6001.logic.Library;
 
 import java.io.IOException;
 
