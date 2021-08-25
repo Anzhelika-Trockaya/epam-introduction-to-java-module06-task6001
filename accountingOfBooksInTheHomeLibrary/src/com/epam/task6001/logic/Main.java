@@ -1,4 +1,4 @@
-package com.epam.task6001;
+package com.epam.task6001.logic;
 
 import com.epam.task6001.logic.Library;
 

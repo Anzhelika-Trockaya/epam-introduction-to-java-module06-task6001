@@ -7,7 +7,8 @@ import java.util.Properties;
 public class MailUtil {
     private static Session session;
 
-    public static void sendMail(String senderEmail, String senderPassword, String[] recipientsEmails, String subject, String text) throws MessagingException {
+    public static void sendMail(String senderEmail, String senderPassword, String[] recipientsEmails, String subject,
+                                String text) throws MessagingException {
         Properties properties = System.getProperties();
 
         properties.put("mail.smtp.auth", "true");
@@ -24,7 +25,8 @@ public class MailUtil {
         transport.close();
     }
 
-    private static MimeMessage prepareMessage(String senderEmail, String[] recipientsEmails, String subject, String text) throws MessagingException {
+    private static MimeMessage prepareMessage(String senderEmail, String[] recipientsEmails, String subject,
+                                              String text) throws MessagingException {
         MimeMessage message = new MimeMessage(session);
 
         for (String recipientEmail : recipientsEmails) {

@@ -43,15 +43,20 @@ public class AdminMenu extends UserMenu {
             if (library.addBook(book)) {
                 System.out.println(" - Book is added. - ");
                 System.out.println(" - Sending messages. Loading ...");
+
                 subject = "The home library";
                 text = "Administrator " + library.getCurrentUser().getName() + " added new book:\n" + book;
-                MailUtil.sendMail(Library.getLibraryMailAddress(), Library.getLibraryMailPassword(), library.getOtherUsersEmails(), subject, text);
+
+                MailUtil.sendMail(Library.getLibraryMailAddress(),
+                        Library.getLibraryMailPassword(),
+                        library.getOtherUsersEmails(), subject, text);
+
                 System.out.println(" - Notifications sent.");
             } else {
                 System.out.println(" - Book is not added! Maybe such a book already exists. - ");
             }
         } catch (IllegalArgumentException exception) {
-            System.out.println(" - Book not added! Incorrect com.epam.task6001.data of book! - ");
+            System.out.println(" - Book not added! Incorrect data of book! - ");
         } catch (MessagingException e) {
             System.out.println(" - Message not sent!");
         }

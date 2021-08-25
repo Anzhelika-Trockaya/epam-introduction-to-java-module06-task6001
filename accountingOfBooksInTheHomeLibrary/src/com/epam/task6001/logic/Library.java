@@ -10,18 +10,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Library {
-    private static final String booksFileName = "accountingOfBooksInTheHomeLibrary/src/com/epam/task6001/data/books.txt";
-    private static final String usersFileName = "accountingOfBooksInTheHomeLibrary/src/com/epam/task6001/data/personData.txt";
-    private static final String indent = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-    private User currentUser;
+    private static final String BOOKS_FILE_NAME = "accountingOfBooksInTheHomeLibrary/src/com/epam/task6001/data/books.txt";
+    private static final String USERS_FILE_NAME = "accountingOfBooksInTheHomeLibrary/src/com/epam/task6001/data/personData.txt";
+    private static final String INDENT = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+    private static final String LIBRARY_MAIL_ADDRESS = "trockaya.test@gmail.com";
+    private static final String LIBRARY_MAIL_PASSWORD = "test147T";
+
     private final Scanner scanner;
-
-    private static final String libraryMailAddress = "trockaya.test@gmail.com";
-    private static final String libraryMailPassword = "test147T";
-
-
     private final ArrayList<Book> books;
     private final ArrayList<User> users;
+
+    private User currentUser;
 
     public Library() {
         books = new ArrayList<>();
@@ -38,24 +37,24 @@ public class Library {
     }
 
     static String getLibraryMailAddress() {
-        return libraryMailAddress;
+        return LIBRARY_MAIL_ADDRESS;
     }
 
     static String getLibraryMailPassword() {
-        return libraryMailPassword;
+        return LIBRARY_MAIL_PASSWORD;
     }
 
     public void start() throws IOException {
         UserMenu menu;
 
-        DataUtil.loadBooks(booksFileName, books);
-        DataUtil.loadUsers(usersFileName, users);
+        DataUtil.loadBooks(BOOKS_FILE_NAME, books);
+        DataUtil.loadUsers(USERS_FILE_NAME, users);
 
-        System.out.println(indent + "--------------------          The home library         --------------------\n\n\n\n");
+        System.out.println(INDENT + "--------------------          The home library         --------------------\n\n\n\n");
         initializeUser();
 
         while (currentUser == null) {
-            System.out.println(indent + "--------------------          The home library         --------------------\n\n");
+            System.out.println(INDENT + "--------------------          The home library         --------------------\n\n");
             System.out.println("Incorrect login or password!");
             System.out.println("Try again.\n\n");
             initializeUser();
@@ -128,7 +127,7 @@ public class Library {
     boolean addBook(Book book) throws IOException {
         if (isNotExistBook(book) && book != null) {
             books.add(book);
-            DataUtil.unloadBooks(booksFileName, books);
+            DataUtil.unloadBooks(BOOKS_FILE_NAME, books);
             return true;
         }
         return false;
@@ -147,7 +146,7 @@ public class Library {
         for (Book book : books) {
             if (book.getId() == id) {
                 books.remove(book);
-                DataUtil.unloadBooks(booksFileName, books);
+                DataUtil.unloadBooks(BOOKS_FILE_NAME, books);
                 return true;
             }
         }
