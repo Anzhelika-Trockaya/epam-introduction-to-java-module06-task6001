@@ -1,4 +1,4 @@
-Admin|Trotskaya Anzhalika|trockaya.anzhelika@gmail.com|Admin|Ashh145j
-yundil|Yundil Alla|trockaya.test@gmail.com|Admin|t6fbgUUU
-zayats|Zayats Elena|angelstantschik@gmail.com|User|YKllkm47
-stanchik|Stanchik Irina|trockaya.anzhelika@gmail.com|User|oiWE254f
+Admin|Trotskaya Anzhalika|trockaya.anzhelika@gmail.com|ADMIN|Ashh145j
+yundil|Yundil Alla|trockaya.test@gmail.com|ADMIN|t6fbgUUU
+zayats|Zayats Elena|angelstantschik@gmail.com|USER|YKllkm47
+stanchik|Stanchik Irina|trockaya.anzhelika@gmail.com|USER|oiWE254f
