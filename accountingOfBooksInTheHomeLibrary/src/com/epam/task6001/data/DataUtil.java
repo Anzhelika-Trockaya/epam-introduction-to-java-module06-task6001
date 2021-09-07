@@ -10,7 +10,8 @@ import java.util.ArrayList;
 
 public class DataUtil {
 
-    public static void loadBooks(String booksFileName, ArrayList<Book> books) throws IOException {
+    public static ArrayList<Book> loadBooks(String booksFileName) throws IOException {
+        ArrayList<Book> books;
         String[] bookStringArray;
         long id;
         String title;
@@ -18,6 +19,8 @@ public class DataUtil {
         BookGenre genre;
         boolean isElectronic;
         int pages;
+
+        books = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(booksFileName))) {
             while (reader.ready()) {
@@ -31,10 +34,13 @@ public class DataUtil {
                 books.add(new Book(id, title, author, genre, pages, isElectronic));
             }
         }
+
+        return books;
     }
 
     public static void unloadBooks(String booksFileName, ArrayList<Book> books) throws IOException {
         String bookString;
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(booksFileName))) {
             for (Book book : books) {
                 bookString = book.getId() + "|" +
@@ -42,19 +48,25 @@ public class DataUtil {
                         book.getAuthor() + "|" +
                         book.getGenre() + "|" +
                         book.getPages() + "|" +
-                        book.isElectronic() + "\n";
+                        book.isElectronic()
+                        + "\n";
+
                 writer.write(bookString);
             }
         }
     }
 
-    public static void loadUsers(String usersFileName, ArrayList<User> users) throws IOException {
+    public static ArrayList<User> loadUsers(String usersFileName) throws IOException {
+        ArrayList<User> users;
         String[] userString;
         String login;
         String name;
         String email;
         UserRole role;
         String password;
+
+        users = new ArrayList<>();
+
         try (BufferedReader reader = new BufferedReader(new FileReader(usersFileName))) {
             while (reader.ready()) {
                 userString = reader.readLine().split("\\|");
@@ -62,60 +74,28 @@ public class DataUtil {
                 name = userString[1];
                 email = userString[2];
                 role = UserRole.valueOf(userString[3]);
-                password = decryptPassword(userString[4]);
+                password = PasswordsDecryptorUtil.decryptPassword(userString[4]);
                 users.add(new User(login, name, email, role, password));
             }
         }
-
+        return users;
     }
 
     public static void unloadUsers(String usersFileName, ArrayList<User> users) throws IOException {
         String userString;
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(usersFileName))) {
             for (User user : users) {
-                userString = user.getLogin() + "|" + user.getName() + "|" + user.getEmail() + "|" + user.getRole() + "|" + encryptPassword(user.getPassword()) + "\n";
+                userString = user.getLogin() +
+                        "|" + user.getName() +
+                        "|" + user.getEmail() +
+                        "|" + user.getRole() +
+                        "|" + PasswordsDecryptorUtil.encryptPassword(user.getPassword()) + "\n";
+
                 writer.write(userString);
             }
         }
     }
 
-    private static String decryptPassword(String encryptedPassword) {
-        char[] encryptedPasswordChars = encryptedPassword.toCharArray();
-        char[] symbols = "abcdefghijklmnopqrstuvwxyzABCDEGGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
-        char[] decryptedPasswordChars = new char[encryptedPasswordChars.length];
-        String decryptedPassword;
 
-        for (int i = 0; i < encryptedPassword.length(); i++) {
-            for (int j = 0; j < 62; j++) {
-                if (symbols[j] == encryptedPasswordChars[i]) {
-                    decryptedPasswordChars[i] = symbols[(j + 7) % 62];
-                }
-            }
-        }
-
-        decryptedPassword = String.valueOf(decryptedPasswordChars);
-        return decryptedPassword;
-    }
-
-    private static String encryptPassword(String decryptedPassword) {
-        char[] decryptedPasswordChars = decryptedPassword.toCharArray();
-        char[] symbols = "abcdefghijklmnopqrstuvwxyzABCDEGGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
-        char[] encryptedPasswordChars = new char[decryptedPasswordChars.length];
-        String encryptedPassword;
-
-        for (int i = 0; i < decryptedPassword.length(); i++) {
-            for (int j = 0; j < 62; j++) {
-                if (symbols[j] == decryptedPasswordChars[i]) {
-                    encryptedPasswordChars[i] = ((j >= 7) ? symbols[j - 7] : symbols[62 + j - 7]);
-                }
-            }
-        }
-
-        encryptedPassword = String.valueOf(encryptedPasswordChars);
-        return encryptedPassword;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(decryptPassword("oiWE254f"));
-    }
 }

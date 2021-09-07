@@ -1,11 +1,22 @@
 package com.epam.task6001.model;
 
-public class User {
-    private final String login;
-    private final String name;
-    private final String email;
-    private final UserRole role;
-    private final String password;
+import java.io.Serializable;
+import java.util.Objects;
+
+public class User implements Serializable {
+    private String login;
+    private String name;
+    private String email;
+    private UserRole role;
+    private String password;
+
+    public User(){
+        this.login="user";
+        this.name="User";
+        this.email="";
+        this.role=UserRole.USER;
+        this.password="";
+    }
 
     public User(String login, String name, String email, UserRole role, String password) {
         this.login = login;
@@ -33,5 +44,53 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(login, user.login) &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(email, user.email) &&
+                role == user.role &&
+                Objects.equals(password, user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(login, name, email, role, password);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "login='" + login + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

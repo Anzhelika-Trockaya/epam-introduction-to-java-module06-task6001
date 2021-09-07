@@ -16,9 +16,9 @@ public class Library {
     private static final String LIBRARY_MAIL_ADDRESS = "trockaya.test@gmail.com";
     private static final String LIBRARY_MAIL_PASSWORD = "test147T";
 
-    private final Scanner scanner;
-    private final ArrayList<Book> books;
-    private final ArrayList<User> users;
+    private Scanner scanner;
+    private ArrayList<Book> books;
+    private ArrayList<User> users;
 
     private User currentUser;
 
@@ -47,8 +47,8 @@ public class Library {
     public void start() throws IOException {
         UserMenu menu;
 
-        DataUtil.loadBooks(BOOKS_FILE_NAME, books);
-        DataUtil.loadUsers(USERS_FILE_NAME, users);
+        books=DataUtil.loadBooks(BOOKS_FILE_NAME);
+        users=DataUtil.loadUsers(USERS_FILE_NAME);
 
         System.out.println(INDENT + "--------------------          The home library         --------------------\n\n\n\n");
         initializeUser();
@@ -60,9 +60,9 @@ public class Library {
             initializeUser();
         }
 
-        if (currentUser.getRole() == UserRole.Admin) {
+        if (currentUser.getRole() == UserRole.ADMIN) {
             menu = new AdminMenu(this);
-        } else if (currentUser.getRole() == UserRole.User) {
+        } else if (currentUser.getRole() == UserRole.USER) {
             menu = new UserMenu(this);
         } else {
             throw new RuntimeException("Incorrect user role!");
@@ -161,7 +161,7 @@ public class Library {
     String[] getAdminsEmails() {
         ArrayList<String> emails = new ArrayList<>();
         for (User user : users) {
-            if (user.getRole() == UserRole.Admin) {
+            if (user.getRole() == UserRole.ADMIN) {
                 emails.add(user.getEmail());
             }
         }

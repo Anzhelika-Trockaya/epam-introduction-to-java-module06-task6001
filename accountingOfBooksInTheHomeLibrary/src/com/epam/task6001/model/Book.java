@@ -1,15 +1,25 @@
 package com.epam.task6001.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Book {
+public class Book implements Serializable {
     private static long currentId = 1;
     private long id;
     private String title;
     private String author;
     private BookGenre genre;
     private int pages;
-    private final boolean isElectronic;
+    private boolean isElectronic;
+
+    public Book() {
+        this.id = currentId++;
+        this.title = "";
+        this.author = "";
+        this.genre = BookGenre.OTHER;
+        this.pages = 0;
+        this.isElectronic = false;
+    }
 
     public Book(long id, String title, String author, BookGenre genre, int pages, boolean isElectronic) {
         this.id = id;
@@ -79,6 +89,10 @@ public class Book {
 
     public boolean isElectronic() {
         return isElectronic;
+    }
+
+    public void setElectronic(boolean isElectronic) {
+        this.isElectronic = isElectronic;
     }
 
     @Override
