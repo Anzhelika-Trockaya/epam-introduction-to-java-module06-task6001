@@ -1,0 +1,4 @@
+login="Admin" name="Trotskaya Anzhalika" email="trockaya.anzhelika@gmail.com" role=ADMIN password="Ashh145j"
+login="yundil" name="Yundil Alla" email="trockaya.test@gmail.com" role=ADMIN password="t6fbgUUU"
+login="zayats" name="Zayats Elena" email="angelstantschik@gmail.com" role=USER password="YKllkm47"
+login="stanchik" name="Stanchik Irina" email="trockaya.anzhelika@gmail.com" role=USER password="oiWE254f"

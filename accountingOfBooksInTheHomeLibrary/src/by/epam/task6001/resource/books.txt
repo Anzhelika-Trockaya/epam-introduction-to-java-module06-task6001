@@ -1,0 +1,39 @@
+id=1 title="Harry Potter and the Sorcerer's Stone" author="J.K. Rowling" bookGenre=FANTASY pages=354 isElectronic=false
+id=2 title="The Thorn Birds" author="Colleen McCullough" bookGenre=NOVEL pages=692 isElectronic=false
+id=3 title="Anna Karenina" author="Leo Tolstoy" bookGenre=NOVEL pages=864 isElectronic=true
+id=4 title="War and peace" author="Leo Tolstoy" bookGenre=EPIC_NOVEL pages=1224 isElectronic=true
+id=5 title="Little Red Riding Hood" author="Charles Perrault" bookGenre=FAIRY_TALE pages=12 isElectronic=false
+id=6 title="Cinderella" author="Charles Perrault" bookGenre=FAIRY_TALE pages=25 isElectronic=false
+id=7 title="The Shining" author="Stephen King" bookGenre=NOVEL pages=468 isElectronic=true
+id=8 title="The Shining" author="Stephen King" bookGenre=NOVEL pages=455 isElectronic=false
+id=9 title="Harry Potter and Chamber of Secrets" author="J.K. Rowling" bookGenre=FANTASY pages=568 isElectronic=true
+id=10 title="Harry Potter and Prisoner of Azkaban" author="J.K. Rowling" bookGenre=FANTASY pages=450 isElectronic=false
+id=11 title="Harry Potter and Goblet of Fire" author="J.K. Rowling" bookGenre=FANTASY pages=680 isElectronic=false
+id=12 title="Harry Potter and Order of the Phoenix" author="J.K. Rowling" bookGenre=FANTASY pages=780 isElectronic=false
+id=13 title="Harry Potter and Half-Blood Prince" author="J.K. Rowling" bookGenre=FANTASY pages=555 isElectronic=false
+id=14 title="Harry Potter and Deathly Hallows" author="J.K. Rowling" bookGenre=FANTASY pages=955 isElectronic=false
+id=15 title="The Hobbit" author="J.R.R. Tolkien" bookGenre=FANTASY pages=458 isElectronic=false
+id=16 title="The Lord of the Rings" author="J.R.R. Tolkien" bookGenre=FANTASY pages=655 isElectronic=false
+id=17 title="Harry Potter and Prisoner of Azkaban" author="J.K. Rowling" bookGenre=FANTASY pages=450 isElectronic=true
+id=18 title="Harry Potter and Goblet of Fire" author="J.K. Rowling" bookGenre=FANTASY pages=680 isElectronic=true
+id=19 title="Harry Potter and Order of the Phoenix" author="J.K. Rowling" bookGenre=FANTASY pages=780 isElectronic=true
+id=20 title="Harry Potter and Half-Blood Prince" author="J.K. Rowling" bookGenre=FANTASY pages=555 isElectronic=true
+id=21 title="Harry Potter and Deathly Hallows" author="J.K. Rowling" bookGenre=FANTASY pages=955 isElectronic=true
+id=22 title="The Hobbit" author="J.R.R. Tolkien" bookGenre=FANTASY pages=458 isElectronic=true
+id=23 title="The Lord of the Rings" author="J.R.R. Tolkien" bookGenre=FANTASY pages=655 isElectronic=true
+id=24 title="Snow White" author="Brothers Grimm" bookGenre=FAIRY_TALE pages=21 isElectronic=false
+id=25 title="The Three Little Pigs" author="S.W. Michalkov" bookGenre=FAIRY_TALE pages=14 isElectronic=false
+id=26 title="Dead Souls" author="N.V. Gogol" bookGenre=NOVEL pages=256 isElectronic=false
+id=27 title="Taras Bulba" author="N.V. Gogol" bookGenre=SHORT_STORY pages=65 isElectronic=true
+id=28 title="Viy" author="N.V. Gogol" bookGenre=SHORT_STORY pages=45 isElectronic=true
+id=29 title="The Fair at Sorochintsi" author="N.V. Gogol" bookGenre=SHORT_STORY pages=33 isElectronic=true
+id=30 title="Fathers and Sons" author="Ivan Turgenev" bookGenre=NOVEL pages=256 isElectronic=false
+id=31 title="Mumu" author="Ivan Turgenev" bookGenre=SHORT_STORY pages=57 isElectronic=false
+id=32 title="Asya" author="Ivan Turgenev" bookGenre=SHORT_STORY pages=74 isElectronic=false
+id=33 title="Baryshnya-krestianka" author="Alexander Pushkin" bookGenre=SHORT_STORY pages=68 isElectronic=true
+id=34 title="Kapitanskaya dochka" author="Alexander Pushkin" bookGenre=NOVEL pages=248 isElectronic=false
+id=35 title="Dubrovsky" author="Alexander Pushkin" bookGenre=NOVEL pages=454 isElectronic=false
+id=36 title="King Stakh's Wild Hunt" author="Uladzimir Karatkievich" bookGenre=NOVEL pages=687 isElectronic=false
+id=37 title="Thumbelina" author="Hans Christian Andersen" bookGenre=FAIRY_TALE pages=24 isElectronic=false
+id=38 title="The Snow Queen" author="Hans Christian Andersen" bookGenre=FAIRY_TALE pages=124 isElectronic=false
+id=39 title="The Little Mermaid" author="Hans Christian Andersen" bookGenre=FAIRY_TALE pages=8 isElectronic=true
