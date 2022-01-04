@@ -8,7 +8,7 @@ public interface LibraryService {
     void addBook(Book book) throws ServiceException;
     void removeBook(long id) throws ServiceException;
     int numberOfBooks() throws ServiceException;
-    List<Book> viewBooks(int quantityToReturn, int quantityToSkip) throws ServiceException;
+    List<Book> getBooks(int quantityToReturn, int quantityToSkip) throws ServiceException;
     int numberOfBooksWithId(long id) throws ServiceException;
     List<Book> searchBooksById(long id, int quantityToReturn, int quantityToSkip) throws ServiceException;
     int numberOfBooksWithTitle(String title) throws ServiceException;

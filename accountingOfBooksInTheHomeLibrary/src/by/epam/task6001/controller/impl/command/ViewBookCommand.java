@@ -55,7 +55,7 @@ public class ViewBookCommand implements Command{
 
         quantityToReturn = takeQuantity(params[0], "quantityToReturn=");
         quantityToSkip = takeQuantity(params[1], "quantityToSkip=");
-        books = libraryService.viewBooks(quantityToReturn, quantityToSkip);
+        books = libraryService.getBooks(quantityToReturn, quantityToSkip);
 
         return books;
     }

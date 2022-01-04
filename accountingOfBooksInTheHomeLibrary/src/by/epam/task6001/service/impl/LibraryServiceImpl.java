@@ -73,7 +73,7 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public List<Book> viewBooks(int quantityToReturn, int quantityToSkip) throws ServiceException {
+    public List<Book> getBooks(int quantityToReturn, int quantityToSkip) throws ServiceException {
         BookDAO dao;
         List<Book> books;
         Book currentBook;
